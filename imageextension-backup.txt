@@ -1,0 +1,55 @@
+<sly data-sly-use.imageExtensionUse = "com.abbvie.commons.core.components.use.ImageExtensionUse"></sly>
+<sly data-sly-use.formattedLink="${'com.abbvie.commons.core.components.use.LinkFormatterUse' @ link=properties.linkTo }"></sly>
+<div class="image-container ${properties.imageAlignment}">
+    <sly data-sly-test="${!properties.isPopUp}">
+        <a data-sly-attribute.href="${formattedLink.url ? formattedLink.url : ''}"
+           target="${properties.targetType}"
+           title="${properties.linkTitle}"
+           alt="${properties.alt}"
+           class="${properties.imageSize}"
+        >
+            <sly data-sly-list.deviceImage="${imageExtensionUse.deviceImageList}">
+
+                <img data-sly-test="${deviceImage.srcImagePath && !properties.disableLazyLoading}"
+                     class="lazyload img-fluid ${deviceImage.cssClass} ${deviceImage.imageShape} ${properties.removeSpacing}"
+                     src="${imageExtensionUse.lowResImage @ context='text'}"
+                     data-sly-attribute.data-src="${deviceImage.srcImagePath ? deviceImage.srcImagePath : ''}"
+                     data-sly-attribute.data-srcset="${deviceImage.srcSetImagePaths ? deviceImage.srcSetImagePaths : ''}"
+                     alt="${deviceImage.altText}"
+                     title="${deviceImage.altText}">
+
+                <img data-sly-test="${deviceImage.srcImagePath && properties.disableLazyLoading}"
+                     class="img-fluid ${deviceImage.cssClass} ${deviceImage.imageShape} ${properties.removeSpacing}"
+                     src="${(deviceImage.srcImagePath ? deviceImage.srcImagePath : '') @ context='html'}"
+                     alt="${deviceImage.altText}"
+                     title="${deviceImage.altText}">
+            </sly>
+        </a>
+    </sly>
+
+    <sly data-sly-test="${properties.isPopUp}" data-sly-list.deviceImage="${imageExtensionUse.deviceImageList}">
+        <a href="${(deviceImage.srcImagePath ? deviceImage.srcImagePath : '') @ context='html'}"
+           target="${properties.targetType}"
+           title="${properties.linkTitle}"
+           alt="${properties.alt}"
+           data-sly-attribute.data-lightbox="roadtrip"
+           class="lightbox-link ${properties.imageSize}"
+        >
+            <sly>
+                <img data-sly-test="${deviceImage.srcImagePath && !properties.disableLazyLoading}"
+                     class="lazyload img-fluid ${deviceImage.cssClass} ${deviceImage.imageShape} ${properties.removeSpacing}"
+                     src="${imageExtensionUse.lowResImage @ context='text'}"
+                     data-sly-attribute.data-src="${deviceImage.srcImagePath ? deviceImage.srcImagePath : ''}"
+                     data-sly-attribute.data-srcset="${deviceImage.srcSetImagePaths ? deviceImage.srcSetImagePaths : ''}"
+                     alt="${deviceImage.altText}"
+                     title="${deviceImage.altText}">
+
+                <img data-sly-test="${deviceImage.srcImagePath && properties.disableLazyLoading}"
+                     class="img-fluid ${deviceImage.cssClass} ${deviceImage.imageShape} ${properties.removeSpacing}"
+                     src="${(deviceImage.srcImagePath ? deviceImage.srcImagePath : '')  @ context='html'}"
+                     alt="${deviceImage.altText}"
+                     title="${deviceImage.altText}">
+            </sly>
+        </a>
+    </sly>
+</div>
