@@ -21,15 +21,15 @@ Scripts for lazy:
 
 // threshold allow 0 to 1, and this mean 0% to 100% element on viewport 
 // rootMargin mean the container section make it larger rootMargin value or make smaller using Negetive mergin ( ex: -50px )
-const config = { rootMargin: '20px 0px 20px 0px', threshold: 0 };
+var config = { rootMargin: '20px 0px 20px 0px', threshold: 0 };
 
-let preloadImage = function(img) {
+var preloadImage = function(img) {
     img.setAttribute('src', img.getAttribute('data-src'));
     img.classList.add('loaded')
     return img 
 };
 
-let observer = new IntersectionObserver(function(entries, self) {
+var observer = new IntersectionObserver(function(entries, self) {
     entries.forEach(function(entry) {
         if(entry.isIntersecting) {
             preloadImage(entry.target);
